@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+    <div class="px-8 py-8">
+        <h2 class="font-bold text-3xl text-center mb-4">Choose A Brand</h2>
+        <div class="grid grid-cols-5 gap-4 rounded-lg md:grid-cols-6 lg:gap-6">
+            {% for brand in brands %}
+                <div class="flex h-16 flex-col items-center justify-center rounded-lg bg-gray-100 p-4 text-gray-400 sm:h-32">
+                    <a href="/q/{{brand.name}}">
+                        <img class="w-16 h-16" src="/static/media/{{brand.image}}" />
+                    </a>
+                    <!-- <p>{{brand.name}}</p> -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

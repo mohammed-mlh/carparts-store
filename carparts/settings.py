@@ -27,9 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.staticfiles',
-    'django_components',
-    'django_components.safer_staticfiles'
+    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
@@ -55,16 +53,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'loaders':[(
-                'django.template.loaders.cached.Loader', [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'django_components.template_loader.Loader',
-                ]
-            )],
-            'builtins': [
-                'django_components.templatetags.component_tags',
-            ]
         },
     },
 ]
@@ -121,7 +109,6 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
-    BASE_DIR/'components'
 ]
 
 

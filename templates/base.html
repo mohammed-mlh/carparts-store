@@ -1,3 +1,4 @@
+{% load component_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Parts | Homepage</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
     {% include 'partials/_navbar.html' %}
-    {% block content %}{% endblock %}
+    {% include 'partials/_hero.html' %}
+
+    
+    <main class="max-w-4xl mx-auto p-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'partials/_footer.html' %}
+
+    <!-- {% component "calendar" date="2015-06-19" %} -->
+    {% component_js_dependencies %}
 </body>
 </html>

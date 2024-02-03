@@ -1,0 +1,11 @@
+{% for brand in brands %}
+  <div hx-target="#output"  hx-post="/q/{{brand.name}}" hx-trigger="click">
+    <img
+      alt="{{brand.name}}"
+      class="w-16 h-16 md:w-16 md:h-16 overflow-hidden rounded-full object-cover object-center border border-blue-700 transition-all duration-150 hover:scale-110"
+      height="70"
+      src="/static/media/{{brand.image}}"
+      width="140"
+    >
+  </div>
+{% endfor %}

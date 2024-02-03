@@ -1,25 +1,51 @@
 from django.shortcuts import render
-from .models import Brand, Model, Submodel, Product
+from django.http import HttpResponse
+from .models import Brand, Model, Submodel, Product, Settings
+from django.views.decorators.csrf import csrf_exempt
 
+# Simple Page
 def index(request):
-    brands = Brand.objects.all()
-    return render(request, 'pages/index.html', {'brands': brands, 'items': [1,2,3]})
+    settings = Settings.objects.first()
+    return render(request, 'pages/index.html', {'settings': settings})
 
-def brand(request, brand):
-    models = Brand.objects.get(name=brand).cmodels.all()
-    return render(request, 'pages/brand.html', {'models': models, 'brand': brand})
+def about(request):
+    return render(request, 'pages/about.html')
 
-def model(request, brand, model):
+def contact(request):
+    return render(request, 'pages/contact.html')
+
+# HTMX Components
+
+@csrf_exempt
+def brands(request):
+  brands = Brand.objects.all()
+  return render(request, 'partials/brands.html', {'brands': brands})
+
+@csrf_exempt
+def models(request, brand):
+  models = Brand.objects.get(name=brand).cmodels.all()
+  return render(request, 'partials/models.html', {
+     'brand': brand,
+     'models': models
+  })
+
+
+# Indexed Products and Product
+
+def indexed_products(request, brand, model):
+    products_by_submodels = []
     submodels = Model.objects.get(name=model).submodels.all()
-    return render(request, 'pages/model.html', {'submodels': submodels, 'brand': brand, 'model': model})
+    for submodel in submodels:
+      products_by_submodels.append({
+        'submodel': submodel.name,
+        'products': submodel.products.all()
+      })
+    print(products_by_submodels)
+    return render(request, 'pages/indexed_products.html', {'products_by_submodels': products_by_submodels, 'brand': brand, 'model': model})
 
-def submodel(request, brand, model, submodel):
-    products = Submodel.objects.get(name=submodel).products.all()
-    return render(request, 'pages/submodel.html', {'products': products, 'brand': brand, 'model': model, 'submodel': submodel})
-
-def product(request, id):
-    product = Product.objects.get(id=id)
+def product(request, slug):
+    product = Product.objects.get(slug=slug)
     related_products = Product.objects.filter(submodel = product.submodel)
     context = {'product': product, 'related_products':related_products}
-    print(id)
+    print(product.options.all())
     return render(request, 'pages/product.html', context)

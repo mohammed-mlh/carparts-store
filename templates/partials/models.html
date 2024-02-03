@@ -1,0 +1,11 @@
+<div hx-target="#output" hx-post="/q" hx-trigger="click" class="grid place-content-center w-16 h-16 md:w-16 md:h-16 overflow-hidden rounded-full object-cover object-center border bg-blue-700 text-white text-sm" hx-target="#output" hx-post="/q/{brand}/{model.name}" hx-trigger="click">
+  <p class="text-white">X</p>
+</div>
+
+{% for model in models %}
+  <a class="cursor-pointer" href="/q/{{brand}}/{{model}}">
+    <div class="grid place-content-center w-16 h-16 md:w-16 md:h-16 overflow-hidden rounded-full object-cover object-center border bg-blue-700 text-white text-sm" hx-target="#output" hx-post="/q/{brand}/{model.name}" hx-trigger="click">
+      <p class="text-white overflow-x-hidden">{{model.name}}</p>
+    </div>
+  </a>
+{% endfor %}

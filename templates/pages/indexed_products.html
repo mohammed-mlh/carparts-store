@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+  <div class="bg-blue-600 p-4 grid place-content-center mb-4">
+    <h2 class="text-center text-xl text-white font-bold">{{brand}}</h2>
+  </div>
+  {% for products_set in products_by_submodels %}
+    <div class="mb-2">
+      <h2 class="text-center text-lg font-bold">{{products_set.submodel}}</h2>
+    </div>
+    {% include 'partials/store/products.html' with products=products_set.products %}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,33 @@
+<div class="w-full" x-data="{ showModal : false }">
+  <!-- Button -->
+  <button @click="showModal = !showModal" class="w-full flex-grow rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-400 hover:to-orange-300 transition-all duration-150 px-8 py-3 md:px-4 md:py-2 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 sm:flex-none md:text-base">Buy Now</button>
+
+  <!-- Modal Background -->
+  <div x-show="showModal" class="h-auto fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-black bg-opacity-40 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+    <!-- Modal -->
+    <form  id="buynow-form" x-show="showModal" class="relative w-9/12  bg-white rounded-xl shadow-2xl p-6" @click.away="showModal = false" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-90 translate-y-1" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
+        <!-- Title -->
+        <span class="font-bold block text-2xl mb-3">Order Confirmation</span>
+        <!-- Some beer ? -->
+    
+        <div class="h-40" x-cloak>
+            {% for option in options %}
+            <div class="flex items-center mb-2 gap-4">
+                <label class="block w-16 font-semibold" for="{{option.name}}">{{option.name|title}}</label>
+                <input type="checkbox" id="{{option.name}}" name="{{option.name}}" value="{{option.name}}">
+            </div>
+            {% endfor %}
+            <div class="flex items-center mb-2 gap-4">
+                <label class="block w-16 font-semibold"  for="quantity">Quantity</label>
+                <input class="border p-2 rounded-md" type="number" id="quantity" name="quantity" value="1">
+            </div>
+        </div>
+
+      <!-- Buttons -->
+      <div class="text-right absolute bottom-0 right-0 space-x-5 p-4">
+          <button @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo">Cancel</button>
+          <button type="submit" id="buynow-btn" class="inline-block py-2 px-6 bg-green-500 hover:bg-green-600 text-sm text-white font-bold rounded-xl transition duration-200">Confirm</button>
+      </div>
+    </form>
+  </div>
+</div>
